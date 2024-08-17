@@ -1,14 +1,14 @@
+import React, { useState } from 'react'; // 여기서 useState를 React에서 가져옵니다.
+
 function App() {
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
-  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (event) => {
     setQuestion(event.target.value);
   };
 
   const handleSubmit = async () => {
-    setLoading(true); // 로딩 상태 시작
     const response = await fetch('/api/process-question', {
       method: 'POST',
       headers: {
@@ -19,7 +19,6 @@ function App() {
 
     const data = await response.json();
     setAnswer(data.answer);
-    setLoading(false); // 로딩 상태 종료
   };
 
   return (
@@ -35,7 +34,6 @@ function App() {
       <button onClick={handleSubmit} style={{ marginTop: '10px', padding: '10px 20px', fontSize: '16px' }}>
         문제풀어주세요
       </button>
-      {loading && <p>Loading...</p>} {/* 로딩 중일 때 표시 */}
       {answer && (
         <div style={{ marginTop: '20px', padding: '10px', border: '1px solid #ccc', borderRadius: '8px' }}>
           <h2>Answer:</h2>
@@ -46,4 +44,4 @@ function App() {
   );
 }
 
-export default App;  // 이 부분이 중요합니다.
+export default App; // 이 부분도 잊지 마세요.
