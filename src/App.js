@@ -45,3 +45,5 @@ function App() {
     </div>
   );
 }
+
+export default App;  // 이 부분이 중요합니다.
