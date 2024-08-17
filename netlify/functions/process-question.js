@@ -1,25 +1,28 @@
-const fetch = require('node-fetch');
+import OpenAI from "openai";
 
-exports.handler = async function(event, context) {
+const openai = new OpenAI();
+
+export const handler = async function(event, context) {
   const { question } = JSON.parse(event.body);
 
-  const openAIResponse = await fetch('https://api.openai.com/v1/completions', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      model: "text-davinci-003",
-      prompt: question,
-      max_tokens: 100,
-    }),
-  });
+  try {
+    const completion = await openai.chat.completions.create({
+      messages: [
+        { "role": "system", "content": "You are a helpful assistant." },
+        { "role": "user", "content": question }
+      ],
+      model: "gpt-4o-mini",
+    });
 
-  const result = await openAIResponse.json();
-
-  return {
-    statusCode: 200,
-    body: JSON.stringify({ answer: result.choices[0].text.trim() }),
-  };
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ answer: completion.choices[0].message.content.trim() }),
+    };
+  } catch (error) {
+    console.error("OpenAI API error:", error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: "Failed to fetch response from OpenAI API" }),
+    };
+  }
 };
