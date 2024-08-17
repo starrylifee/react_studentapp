@@ -43,9 +43,6 @@ coverage/
 # Ignore Mac specific files
 *.DS_Store
 
-# Ignore the public directory (if it's generated automatically)
-public/
-
 # Ignore all local server related files (for example if you have local development tools)
 .vagrant/
 .docker/
