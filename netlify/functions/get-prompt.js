@@ -25,7 +25,8 @@ exports.handler = async (event) => {
     };
   }
 
-  console.log("Environment variable:", process.env.REACT_APP_GOOGLE_CREDENTIALS);
+  // 환경 변수 출력 로그 추가
+  console.log("Environment variable (REACT_APP_GOOGLE_CREDENTIALS):", process.env.REACT_APP_GOOGLE_CREDENTIALS);
 
   let credentials;
   try {
