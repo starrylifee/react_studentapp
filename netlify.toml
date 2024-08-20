@@ -1,7 +1,9 @@
 [build]
-  functions = "netlify/functions"
-  publish = "build"
+  command = "npm ci && npm run build"
   node_version = "14"
+  publish = "build"
+  functions = "netlify/functions"
+
 
 
 [[redirects]]
